@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EagleView Help Center</title>
+  <meta name="description" content="Role-based user guides and training for the Nigeria Revenue Service EagleView performance management system (E-PMS).">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <script>
+    // Apply the saved theme and sidebar state before first paint to avoid a flash.
+    try {
+      var t = localStorage.getItem('nrs_theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      if (localStorage.getItem('nrs_sidebar') === 'collapsed') document.documentElement.classList.add('sidebar-collapsed');
+    } catch (e) {}
+  </script>
+  <link rel="icon" href="assets/brand/favicon.ico">
+  <link rel="preload" href="fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="nav-start">
+        <button type="button" class="icon-btn nav-sidebar-btn" id="sidebarBtn" data-action="toggle-sidebar" aria-controls="sidebar" aria-expanded="true" aria-label="Hide sidebar"></button>
+        <a class="nav-logo" href="#/" aria-label="EagleView Help Center home">
+          <span class="logo-badge" aria-hidden="true"><img src="assets/brand/nrs-logo.png" alt="" width="30" height="10"></span>
+          <span class="logo-text">
+            <span class="logo-word">Eagle<span class="logo-accent">View</span></span>
+            <span class="logo-tag">Nigeria Revenue Service</span>
+          </span>
+          <span class="logo-divider" aria-hidden="true"></span>
+          <span class="logo-sub">Help Center</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main">
+        <button type="button" class="nav-link nav-dd-trigger" data-dd="guides" aria-expanded="false" aria-controls="ddGuides">Guides <span class="chev" data-icon="chevronDown"></span></button>
+        <button type="button" class="nav-link nav-dd-trigger" data-dd="resources" aria-expanded="false" aria-controls="ddResources">Resources <span class="chev" data-icon="chevronDown"></span></button>
+        <a class="nav-link" href="#/article/the-performance-year">Get started</a>
+        <a class="nav-link" href="#/guides">All guides</a>
+      </nav>
+      <div class="nav-actions">
+        <button type="button" class="icon-btn nav-theme" data-action="theme" data-theme-icon aria-label="Switch theme"></button>
+        <button type="button" class="nav-text-link" data-action="vault" data-vault-label>Executive access</button>
+        <a class="btn btn-primary nav-cta app-href" href="#" target="_blank" rel="noopener noreferrer">Open E-PMS</a>
+        <button type="button" class="nav-menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"></button>
+      </div>
+    </div>
+    <div class="dd-panel" id="ddGuides" data-dd="guides" hidden></div>
+    <div class="dd-panel dd-panel-resources" id="ddResources" data-dd="resources" hidden></div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" hidden></div>
+
+  <div class="page">
+    <aside class="sidebar" id="sidebar" aria-label="Help Center navigation">
+      <div class="sidebar-inner">
+        <button type="button" class="sidebar-search" data-action="search">
+          <span class="sidebar-search-icon" data-icon="search"></span>
+          <span class="sidebar-search-label">Search</span>
+        </button>
+        <nav id="sidebarNav"></nav>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="content" id="content"></div>
+    </main>
+
+    <aside class="toc-drawer" id="tocDrawer" aria-label="Contents">
+      <div class="toc-drawer-head">
+        <span class="smallcaps">Contents</span>
+        <button type="button" class="icon-btn" data-action="toggle-toc" aria-label="Hide contents" data-icon="close"></button>
+      </div>
+      <nav id="tocNav"></nav>
+    </aside>
+  </div>
+  <div class="scrim" id="scrim"></div>
+
+  <footer class="footer" id="footer"></footer>
+
+  <!-- Search -->
+  <div class="overlay" id="searchOverlay" hidden>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search guides">
+      <div class="search-field">
+        <span class="search-field-icon" data-icon="search"></span>
+        <input type="search" id="searchInput" placeholder="Search for anything…" autocomplete="off" spellcheck="false" enterkeyhint="search" aria-controls="searchResults">
+        <button type="button" class="icon-btn search-close" data-action="close-search" aria-label="Close search" data-icon="close"></button>
+      </div>
+      <ul class="search-results" id="searchResults" role="listbox"></ul>
+      <div class="search-footer">
+        <span><kbd class="kbd">↑</kbd> <kbd class="kbd">↓</kbd> to navigate</span>
+        <span><kbd class="kbd">Enter</kbd> to open</span>
+        <span><kbd class="kbd">Esc</kbd> to close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive access -->
+  <div class="overlay overlay-center" id="vaultOverlay" hidden>
+    <form class="dialog" id="vaultForm" role="dialog" aria-modal="true" aria-labelledby="vaultTitle" autocomplete="off">
+      <span class="dialog-icon" data-icon="lock"></span>
+      <h2 id="vaultTitle">Executive access</h2>
+      <p>Some guides are restricted to Executive Management. Enter your executive PIN to view them on this device for this session.</p>
+      <label class="visually-hidden" for="vaultInput">Executive PIN</label>
+      <input type="password" id="vaultInput" class="dialog-input" inputmode="numeric" placeholder="Enter PIN" maxlength="32">
+      <p class="dialog-error" id="vaultError" hidden>That PIN didn't work. Try again.</p>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-tertiary" data-action="close-vault">Cancel</button>
+        <button type="submit" class="btn btn-primary">Unlock</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Screenshot lightbox -->
+  <div class="lightbox" id="lightbox" hidden><img alt=""></div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="guides-data.js"></script>
+  <script src="portal.js"></script>
+</body>
+</html>
